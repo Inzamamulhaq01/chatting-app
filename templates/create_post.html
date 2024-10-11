@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+
+
+<div class="content-section">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <legend class="border-bottom mb-4 text-center">Create Post</legend>
+        <fieldset class="form-group">
+            
+            {{ form | crispy}}
+
+
+        </fieldset>
+         <div class="form-group">
+       <button class="btn btn-outline-info" type="submit">Upload Post</button>
+       
+
+   </div>
+   
+        
+    </form>
+    <a href="{% url 'home' %}"><button class="btn btn-outline-info text-decoration-none">Go Back</button></a>
+    
+</div>
+
+
+
+{% endblock content %}

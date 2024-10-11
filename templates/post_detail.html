@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+        <article class="media content-section">
+            <img class="rounded-cirlce article-img" src="{{ object.user.profile.image.url }}" alt="">
+            <div class="media-body">
+              <div class="article-metadata">
+                <a class="mr-2" href="#">{{ object.user }}</a>
+                <small class="text-muted">{{ object.created }}</small> <br>
+                  {% if object.user == user %}
+
+                    <div>
+
+                    </div>
+                  {% endif %}
+              </div>
+              <h2><a class="article-title" href="#">{{ object.title }}</a></h2>
+              <h5 class="article-content">{{ object.desc }}</h5>
+              <p class="article-content">{{ object.catagory }}</p>
+            </div>
+            <br>
+          </article>
+{% endblock content %}

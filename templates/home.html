@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block content %} {% for posts in Posts %}
+<article class="media content-section">
+  <!-- <img class="rounded-circle article-img img-radius" src="{{ user.profile.image.url }}" alt=""> -->
+  <img
+    class="rounded-circle article-img img-radius"
+    src="{{ posts.user.profile.image.url }}"
+    alt=""
+  />
+  <div class="media-body">
+    <div class="article-metadata">
+      <a class="mr-2" href="#">{{ posts.user.username }}</a>
+      <small class="text-muted">{{ posts.created }}</small>
+    </div>
+    <h2>
+      <a class="article-title" href="{% url 'detail' posts.id %}"
+        >{{ posts.title }}</a
+      >
+    </h2>
+    <p class="article-content">{{ posts.desc }}</p>
+    <p class="article-content">{{ posts.catagory }}</p>
+  </div>
+  <br />
+</article>
+{% endfor %} {% endblock content %}
