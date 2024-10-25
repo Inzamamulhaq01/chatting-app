@@ -5,19 +5,23 @@
             <img class="rounded-cirlce article-img" src="{{ object.user.profile.image.url }}" alt="">
             <div class="media-body">
               <div class="article-metadata">
-                <a class="mr-2" href="#">{{ object.user }}</a>
+                <a class="mr-2" href="#"><h5>{{ object.user }}</h5></a>
                 <small class="text-muted">{{ object.created }}</small> <br>
-                  {% if object.user == user %}
-
-                    <div>
-
-                    </div>
-                  {% endif %}
+                  
               </div>
               <h2><a class="article-title" href="#">{{ object.title }}</a></h2>
               <h5 class="article-content">{{ object.desc }}</h5>
               <p class="article-content">{{ object.catagory }}</p>
+              {% if object.user == user %}
+
+                    <div>
+                        <a class="btn btn-outline-success my-3" href="{% url 'update' object.id %}" >Update</a>
+                        <a class="btn btn-outline-danger" href="{% url 'delete' object.id %}" >Delete</a>
+
+                    </div>
+                  {% endif %}
             </div>
+            
             <br>
           </article>
 {% endblock content %}

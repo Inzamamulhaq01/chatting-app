@@ -1,12 +1,14 @@
 from ast import List
+from urllib import request
 from django.shortcuts import redirect, render
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView,UpdateView,DeleteView
 from django.contrib import messages
 from django.contrib.auth import login,logout,authenticate
 from .models import Post,Profile
 from django.contrib.auth.forms import UserCreationForm
 from .forms import *
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 
 
 # class homeView(View):
@@ -17,20 +19,30 @@ from .forms import *
 #         other_profiles = Profile.objects.all().exclude(user=request.user)
 #         return render(request,'home.html',{'Posts':post_obj,'other_profiles':other_profiles})
     
-class homeListView(ListView):
+class homeListView(ListView,LoginRequiredMixin):
     model = Post
     template_name = 'home.html'
     context_object_name = 'Posts'
     ordering = ["-created"]
+    
 
-class PostDetailView(DetailView):
+    
+    
+
+class PostDetailView(LoginRequiredMixin,DetailView):
     model = Post 
     template_name = 'post_detail.html'
+
+
+
     
-class profileView(View):
+    
+    
+class profileView(LoginRequiredMixin,View):
     
     def get(self,request):
         return render(request,'profile.html')
+
 
 # class NewPost(View):
 #     def get(self,request):
@@ -46,17 +58,51 @@ class profileView(View):
 #             messages.success(request, 'Post has Created Successfully!')
 #             return redirect('home')
         
-class NewPost(CreateView):
-    model = Post 
+class NewPost(CreateView,LoginRequiredMixin,UserPassesTestMixin):
+    model = Post
     fields = ['title','desc','catagory']
     template_name = 'create_post.html'
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
     
+    
+    
+    
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin,UpdateView):
+    model = Post
+    fields = ['title','desc','catagory']
+    template_name = 'update_post.html'
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.user: 
+            print(post.user)
+            return True
+        return False
+    
+    
+   
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin,DeleteView):
+    model = Post
+    success_url='/'
+    template_name='post_confirm_delete.html'
+    
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.user: 
+            print(post.user)
+            return True
+        return False
 
 
 
-
-class ProfileUpdateView(View):
+class ProfileUpdateView(LoginRequiredMixin,UserPassesTestMixin,View):
     
     def get(self,request):
         u_form = UserUpdateForm()
@@ -84,6 +130,13 @@ class ProfileUpdateView(View):
                 'p_form': p_form
             }
             return render(request, 'profile_update.html', context)
+
+    def test_func(self):
+        post = self.request
+        if self.request.user == post.user: 
+            print(post.user)
+            return True
+        return False
         
        
         

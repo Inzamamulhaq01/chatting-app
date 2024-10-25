@@ -30,9 +30,11 @@ urlpatterns = [
     path('login/',auth_views.LoginView.as_view(template_name='login.html'),name='login'),
     path('logout/', views.logoutView.as_view(),name='logout'),
     path('register/',views.registerView.as_view(),name='register'),
-    path('profile/update_profile',views.ProfileUpdateView.as_view(),name='profile-update'),
+    path('profile/update',views.ProfileUpdateView.as_view(),name='profile-update'),
     path('',login_required(homeListView.as_view()),name='home'),
     path('post/<int:pk>',PostDetailView.as_view(),name='detail'),
+    path('post/<int:pk>/update',PostUpdateView.as_view(),name='update'),
+    path('post/<int:pk>/delete',PostDeleteView.as_view(),name='delete'),
     path('new/post',NewPost.as_view(),name='newpost')
 ] 
 
