@@ -1,0 +1,24 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "project_blog/wsgi.py",
+        "use": "@vercel/python",
+        "config": {
+          "runtime": "python3.9"
+        }
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "project_blog/wsgi.py"
+      }
+    ],
+    "build": {
+      "env": {
+        "MYSQLCLIENT_CFLAGS": "-I/usr/include/mysql",
+        "MYSQLCLIENT_LDFLAGS": "-L/usr/lib/x86_64-linux-gnu -lmysqlclient"
+      }
+    }
+  }
