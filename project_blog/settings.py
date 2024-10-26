@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-SECURE_HSTS_SECONDS = 0
+# SECURE_HSTS_SECONDS = 0
 
 
 from pathlib import Path
@@ -35,6 +35,12 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*','.vercel.app']
 
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_HSTS_PRELOAD = True
 
 # Application definition
 
