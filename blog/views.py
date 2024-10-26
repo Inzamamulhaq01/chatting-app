@@ -24,6 +24,7 @@ class homeListView(ListView,LoginRequiredMixin):
     template_name = 'home.html'
     context_object_name = 'Posts'
     ordering = ["-created"]
+
     
 
     

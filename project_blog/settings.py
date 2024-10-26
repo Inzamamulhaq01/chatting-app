@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-# SECURE_HSTS_SECONDS = 0
+
+
 
 
 from pathlib import Path
@@ -29,18 +30,18 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = 'ns9c6-=3i7p!+3anar4nz%y#3es4%d^7#8#(pri(%12_4du7gm'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*','.vercel.app']
+ALLOWED_HOSTS = ['*']
 
-SECURE_SSL_REDIRECT = True
-SECURE_HSTS_SECONDS = 31536000
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_HSTS_PRELOAD = True
+# SECURE_SSL_REDIRECT = True
+# SECURE_HSTS_SECONDS = 31536000
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# SECURE_HSTS_PRELOAD = True
 
 # Application definition
 
@@ -100,35 +101,40 @@ WSGI_APPLICATION = 'project_blog.wsgi.application'
 
 
 
-import os
-import dj_database_url
+# import os
+# import dj_database_url
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': os.environ.get('NAME'),
+#         'USER': os.environ.get('USER'),
+#         'PASSWORD': os.environ.get('PASSWORD'),
+#         'HOST': os.environ.get('HOST'),
+#         'PORT': os.environ.get('PORT'),
+#     }
+# }
+
+# # Optionally, override using dj_database_url if DATABASE_URL is set in the environment
+# DATABASES['default'] = dj_database_url.parse(
+#     os.environ.get('URL'),
+#     conn_max_age=600,
+#     ssl_require=True
+# )
+# MYSQL_ATTR_SSL_CA='/etc/ssl/cert.pem'
+# # Set the charset and SSL options
+# DATABASES['default']['OPTIONS'] = {
+#     'charset': 'utf8mb4',
+#     'ssl': {'ca': os.environ.get('/etc/ssl/cert.pem')}
+# }
+
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('NAME'),
-        'USER': os.environ.get('USER'),
-        'PASSWORD': os.environ.get('PASSWORD'),
-        'HOST': os.environ.get('HOST'),
-        'PORT': os.environ.get('PORT'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-# Optionally, override using dj_database_url if DATABASE_URL is set in the environment
-DATABASES['default'] = dj_database_url.parse(
-    os.environ.get('URL'),
-    conn_max_age=600,
-    ssl_require=True
-)
-MYSQL_ATTR_SSL_CA='/etc/ssl/cert.pem'
-# Set the charset and SSL options
-DATABASES['default']['OPTIONS'] = {
-    'charset': 'utf8mb4',
-    'ssl': {'ca': os.environ.get('/etc/ssl/cert.pem')}
-}
-
-
-
 
 
 
@@ -183,5 +189,4 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 LOGIN_REDIRECT_URL = 'home' 
 # LOGOUT_REDIRECT_URL = 'login'
 LOGIN_URL = 'login'
-
 
